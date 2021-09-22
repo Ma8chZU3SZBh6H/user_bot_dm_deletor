@@ -1,28 +1,16 @@
-const axios = require("axios").default;
-const WebSocket = require("ws");
-const { get_dms } = require("./src/get_dms.js");
-
-require("dotenv").config();
-const { USER_TOKEN, FRIEND_ID } = process.env;
+const prompt = require("prompt");
+const { delete_dms } = require("./src/delete_dms");
 
 (async () => {
-  const test = await get_dms();
-  console.log(test);
-})();
+  const { user_token, friend_id } = await prompt.get([
+    "user_token",
+    "friend_id",
+  ]);
 
-// (async () => {
-//   const channel_id = "801159144572059698";
-//   const api_msg_limit = "100";
-//   const url = `https://discord.com/api/v9/channels/${channel_id}/messages?limit=${api_msg_limit}`;
-//   let url_modified = url;
-//   let msg_count = 100;
-//   do {
-//     const msgs = (
-//       await axios.get(url_modified, { headers: { authorization: USER_TOKEN } })
-//     ).data;
-//     const last_msg = msgs[msgs.length - 1];
-//     url_modified = `${url}&before=${last_msg.id}`;
-//     msg_count = msgs.length;
-//     console.log(msgs.length, last_msg.content, url_modified);
-//   } while (msg_count == 100);
-// })();
+  let dmc = 0;
+  await delete_dms(user_token, friend_id, (deleted_msg_count) => {
+    dmc += deleted_msg_count;
+    console.log(dmc);
+  });
+  console.log("FINISHED");
+})();
