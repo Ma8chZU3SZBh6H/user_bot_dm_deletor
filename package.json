@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "axios": "^0.21.4",
     "discord-user-bots": "^1.2.7",
     "discord.js": "^11.5.1",
     "discord.js.userbot": "^1.0.3",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "ws": "^8.2.2"
   }
 }
